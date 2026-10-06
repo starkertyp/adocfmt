@@ -1,0 +1,17 @@
+= Some headline
+== Some other headline
+
+= Test123
+A lot of very important text look here.
+= Blafasel
+
+more text
+[[anchor-one]]
+== With anchor
+text before a gap
+[[anchor-two]]
+
+=== Gap anchor heading
+[[anchor-three]]
+[[anchor-four]]
+== Stacked anchors

@@ -1,0 +1,43 @@
+= Titel. Zweiter Satz.
+
+Ein erster Satz. Ein zweiter Satz.
+Dies ist ein über
+mehrere Zeilen umgebrochener Satz.
+
+Dieser Absatz hat keinen Schluss
+
+* Listenpunkt. Zweiter Punkt.
+:attribut: wert
+// Kommentar. Noch ein Satz.
+|===
+| a | b
+a| include::../version.txt[]
+|===
+[[anker]]
+[source]
+text mit Abkürzung z.B. ein Beispiel
+
+Folgende Punkte:
+* Erster Punkt
+* Zweiter Punkt
+
+.Caption. Zweiter Satz.
+Ein Absatz. Zwei Sätze.
+
+.Untertitel
+|===
+| a | b
+|===
+
+<<<<
+Ein Absatz. Zwei Sätze.
+
+Trailing nbsp hier. 
+
+Trailing em space hier. 
+
+z.B. Der folgende Text bleibt zusammen.
+
+usw. Das gilt auch hier.
+
+usw. Der Satz endet hier. Ein neuer Satz beginnt.

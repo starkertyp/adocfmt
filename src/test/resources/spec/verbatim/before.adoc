@@ -1,0 +1,26 @@
+= Real heading
+Text directly after.
+
+----
+= Not a heading
+== Still not a heading
+|a|b
+|heading|1|2
+----
+
+More text
+= Another heading
+
+****
+= Not a heading in sidebar
+|a|b
+****
+
+****
+= Outer heading
+----
+= Inner listing heading
+|a|b
+----
+outer text
+****
