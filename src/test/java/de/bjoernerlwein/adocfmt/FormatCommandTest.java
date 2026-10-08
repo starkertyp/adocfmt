@@ -88,6 +88,41 @@ class FormatCommandTest {
   }
 
   @Test
+  void proseIsNotSplitByDefault(@TempDir Path dir) throws Exception {
+    Path file = dir.resolve("a.adoc");
+    Files.writeString(file, "Erster Satz. Zweiter Satz.");
+
+    int code = cmd.execute(file.toString());
+
+    assertEquals(0, code);
+    assertEquals("Erster Satz. Zweiter Satz.", out.toString());
+  }
+
+  @Test
+  void sentencePerLineFlagSplitsProseViaStdin() {
+    CommandLine stdinCmd =
+        new CommandLine(
+                new FormatCommand(
+                    new ByteArrayInputStream(
+                        "Erster Satz. Zweiter Satz.".getBytes(StandardCharsets.UTF_8))))
+            .setOut(new PrintWriter(out, true))
+            .setErr(new PrintWriter(err, true));
+
+    int code = stdinCmd.execute("--stdin", "--sentence-per-line");
+
+    assertEquals(0, code);
+    assertEquals("Erster Satz.\nZweiter Satz.", out.toString());
+  }
+
+  @Test
+  void checkWithSentencePerLineFlagsProseDifference(@TempDir Path dir) throws Exception {
+    Path file = dir.resolve("a.adoc");
+    Files.writeString(file, "Erster Satz. Zweiter Satz.");
+
+    assertEquals(1, cmd.execute("--check", "--sentence-per-line", file.toString()));
+  }
+
+  @Test
   void missingFileExitsTwo(@TempDir Path dir) {
     assertEquals(2, cmd.execute(dir.resolve("nope.adoc").toString()));
   }

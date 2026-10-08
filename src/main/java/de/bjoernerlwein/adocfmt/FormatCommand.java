@@ -44,9 +44,14 @@ public final class FormatCommand implements Callable<Integer> {
   @Option(names = "--stdin", description = "Read from standard input.")
   private boolean stdin;
 
+  @Option(
+      names = "--sentence-per-line",
+      description = "Enable the sentence-per-line rule (opt-in).")
+  private boolean sentencePerLine;
+
   @Spec private CommandSpec spec;
 
-  private final Formatter formatter = new Formatter(FormatRules.defaults());
+  private Formatter formatter;
   private final InputStream in;
 
   public FormatCommand() {
@@ -61,6 +66,7 @@ public final class FormatCommand implements Callable<Integer> {
   public Integer call() {
     PrintWriter out = spec.commandLine().getOut();
     PrintWriter err = spec.commandLine().getErr();
+    formatter = new Formatter(FormatRules.defaults(sentencePerLine));
 
     if (stdin) {
       String input = readStdin();

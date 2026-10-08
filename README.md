@@ -22,7 +22,7 @@ Die Pipeline ist zeilenbasiert und normalisiert zunächst die Zeilenenden auf
 | `CollapseBlankLinesRule` | Fasst mehrere aufeinanderfolgende Leerzeilen zu einer zusammen. |
 | `HeadingBlankLineRule` | Erzwingt genau eine Leerzeile um Überschriften (Anker ausgenommen). |
 | `TableCellSpacingRule` | Vereinheitlicht Leerzeichen um `|` in Tabellenzeilen. |
-| `SentencePerLineRule` | Setzt Fließtext auf einen Satz pro Zeile, ergänzt fehlende Punkte. |
+| `SentencePerLineRule` | Setzt Fließtext auf einen Satz pro Zeile, ergänzt fehlende Punkte. **Opt-in** via `--sentence-per-line`. |
 
 In `----`- und `****`-Blöcken (Verbatim/Listing) wird nichts verändert. Jede
 Regel ist idempotent: `format(format(x)) == format(x)`.
@@ -78,6 +78,7 @@ cat docs/handbuch.adoc | java -jar target/adocfmt.jar --stdin
 | `-c`, `--check` | Nur prüfen; Exit-Code `1`, falls Änderungen nötig wären. |
 | `--diff` | Statt des Ergebnisses einen Unified Diff ausgeben. |
 | `--stdin` | Eingabe von der Standardeingabe lesen. |
+| `--sentence-per-line` | Opt-in: die `SentencePerLineRule` für diesen Lauf aktivieren. |
 | `-h`, `--help` | Hilfe anzeigen (via picocli). |
 | `-V`, `--version` | Version anzeigen. |
 
