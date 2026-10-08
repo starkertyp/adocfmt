@@ -114,4 +114,22 @@ class TableCellSpacingTest {
   void inlineAAfterLeadingMarkerIsContent() {
     assertEquals("|===\n| a | b\n|===\n", formatter.format("|===\n|a|b\n|===\n"));
   }
+
+  @Test
+  void escapedPipeInCellUnchanged() {
+    assertEquals(
+        "|===\n| oc get configmap -o yaml \\| grep -i name\n|===\n",
+        formatter.format("|===\n| oc get configmap -o yaml \\| grep -i name\n|===\n"));
+  }
+
+  @Test
+  void escapedPipeNotSpacedBetweenRealMarkers() {
+    assertEquals("|===\n| a \\| b | c\n|===\n", formatter.format("|===\n|a \\| b|c\n|===\n"));
+  }
+
+  @Test
+  void escapedPipeLineIsIdempotent() {
+    String once = formatter.format("|===\n| cmd \\| grep | more\n|===\n");
+    assertEquals(once, formatter.format(once));
+  }
 }

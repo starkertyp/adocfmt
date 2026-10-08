@@ -21,7 +21,7 @@ Die Pipeline ist zeilenbasiert und normalisiert zunächst die Zeilenenden auf
 | --- | --- |
 | `CollapseBlankLinesRule` | Fasst mehrere aufeinanderfolgende Leerzeilen zu einer zusammen. |
 | `HeadingBlankLineRule` | Erzwingt genau eine Leerzeile um Überschriften (Anker ausgenommen). |
-| `TableCellSpacingRule` | Vereinheitlicht Leerzeichen um `|` in Tabellenzeilen. |
+| `TableCellSpacingRule` | Vereinheitlicht Leerzeichen um `|` in Tabellenzeilen. Escapte Pipes (`\|`) gelten nicht als Zelltrenner und bleiben unverändert. |
 | `SentencePerLineRule` | Setzt Fließtext auf einen Satz pro Zeile, ergänzt fehlende Punkte. **Opt-in** via `--sentence-per-line`. |
 
 In `----`- und `****`-Blöcken (Verbatim/Listing) wird nichts verändert. Jede

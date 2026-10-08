@@ -16,3 +16,9 @@ a|
 |
 |
 |===
+
+|===
+|Befehl|Beschreibung
+|oc get configmap cm -o yaml \| grep -i name
+|a \| b|c
+|===

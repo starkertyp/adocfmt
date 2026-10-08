@@ -11,7 +11,9 @@ public final class TableCellSpacingRule implements FormatRule {
   // table state here.
 
   private static final Pattern FENCE = Pattern.compile("^\\|===\\s*$");
-  private static final Pattern MARKER = Pattern.compile("\\s*\\|\\s*");
+  // ponytail: lookbehind only skips a single backslash, so `\\|` (escaped
+  // backslash + real marker) is left unspaced; count backslashes if ever needed
+  private static final Pattern MARKER = Pattern.compile("\\s*(?<!\\\\)\\|\\s*");
   private static final Pattern LEADING = Pattern.compile("^\\s*\\|");
   private static final Pattern A_LEADING = Pattern.compile("^\\s*a\\|");
   private static final Pattern EMPTY_CELL = Pattern.compile("^\\|\\s*$");
