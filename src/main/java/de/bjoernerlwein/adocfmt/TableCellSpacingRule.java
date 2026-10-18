@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 public final class TableCellSpacingRule implements FormatRule {
 
-  // Line-based table detection. Delimited `----` blocks are segments the
-  // Formatter never exposes to this rule, so listing content cannot toggle
-  // table state here.
+  // Line-based table detection. Delimited blocks are masked by the Formatter,
+  // so listing content only reaches this rule as opaque token lines without
+  // cell markers and cannot toggle table state here.
 
   private static final Pattern FENCE = Pattern.compile("^\\|===\\s*$");
   // ponytail: lookbehind only skips a single backslash, so `\\|` (escaped

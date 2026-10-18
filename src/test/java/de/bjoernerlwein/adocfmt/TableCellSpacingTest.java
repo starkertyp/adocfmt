@@ -132,4 +132,29 @@ class TableCellSpacingTest {
     String once = formatter.format("|===\n| cmd \\| grep | more\n|===\n");
     assertEquals(once, formatter.format(once));
   }
+
+  @Test
+  void cellAfterNestedProtectedBlockIsSpaced() {
+    String input = "|===\n|a|b\n----\nx|y\n----\n|c|d\n|===\noutside|line\n";
+    assertEquals(
+        "|===\n| a | b\n----\nx|y\n----\n| c | d\n|===\noutside|line\n", formatter.format(input));
+  }
+
+  @Test
+  void protectedTableFenceDoesNotToggleTableState() {
+    String input = "|===\n|a\n----\n|===\n----\n|b|c\n|===\n";
+    assertEquals("|===\n| a\n----\n|===\n----\n| b | c\n|===\n", formatter.format(input));
+  }
+
+  @Test
+  void nestedProtectedBlockIsIdempotent() {
+    String[] inputs = {
+      "|===\n|a|b\n----\nx|y\n----\n|c|d\n|===\noutside|line\n",
+      "|===\n|a\n----\n|===\n----\n|b|c\n|===\n",
+    };
+    for (String input : inputs) {
+      String once = formatter.format(input);
+      assertEquals(once, formatter.format(once), input);
+    }
+  }
 }

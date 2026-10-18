@@ -21,3 +21,21 @@ text before a gap
 [[anchor-three]]
 [[anchor-four]]
 == Stacked anchors
+
+----
+code block
+----
+
+= Heading after a fence
+
+text
+----
+more code
+----
+
+[[anchor-five]]
+== Anchored heading after a fence
+
+----
+code after heading
+----

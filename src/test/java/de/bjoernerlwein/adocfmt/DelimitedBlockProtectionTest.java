@@ -1,6 +1,7 @@
 package de.bjoernerlwein.adocfmt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -100,5 +101,17 @@ class DelimitedBlockProtectionTest {
       String once = formatter.format(input);
       assertEquals(once, formatter.format(once), input);
     }
+  }
+
+  @Test
+  void ruleOutputCannotAlterProtectedContent() {
+    Formatter upperCase = new Formatter(List.of(String::toUpperCase));
+    assertEquals("----\n= lower\n----\n", upperCase.format("----\n= lower\n----\n"));
+  }
+
+  @Test
+  void consumedProtectedLineFails() {
+    Formatter remover = new Formatter(List.of(s -> s.replaceAll("(?m)^\u0000[^\\n]*\\n?", "")));
+    assertThrows(IllegalStateException.class, () -> remover.format("----\n= H\n----\n"));
   }
 }

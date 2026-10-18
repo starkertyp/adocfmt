@@ -94,4 +94,32 @@ class HeadingBlankLineTest {
   void anchorAsFirstLine() {
     assertEquals("[[a]]\n= H\n", formatter.format("[[a]]\n= H\n"));
   }
+
+  @Test
+  void headingDirectlyBeforeOpeningFence() {
+    assertEquals("= H\n\n----\ncode\n----\n", formatter.format("= H\n----\ncode\n----\n"));
+  }
+
+  @Test
+  void headingDirectlyAfterClosingFence() {
+    assertEquals(
+        "----\ncode\n----\n\n= H\n\ntext\n", formatter.format("----\ncode\n----\n= H\ntext\n"));
+  }
+
+  @Test
+  void anchorDirectlyAfterClosingFence() {
+    assertEquals(
+        "----\ncode\n----\n\n[[a]]\n= H\n", formatter.format("----\ncode\n----\n[[a]]\n= H\n"));
+  }
+
+  @Test
+  void fenceBoundariesAreIdempotent() {
+    String[] inputs = {
+      "= H\n----\ncode\n----\n", "----\ncode\n----\n= H\ntext\n", "----\ncode\n----\n[[a]]\n= H\n",
+    };
+    for (String input : inputs) {
+      String once = formatter.format(input);
+      assertEquals(once, formatter.format(once), input);
+    }
+  }
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 public final class CollapseBlankLinesRule implements FormatRule {
 
-  // Line-based. Delimited `----` blocks are withheld by the Formatter, so empty
-  // lines inside listing/verbatim content are never reached by this rule.
+  // Line-based. Delimited blocks are masked by the Formatter, so empty lines
+  // inside listing/verbatim content only reach this rule as non-empty tokens.
   // ponytail: a whitespace-only line counts as content, not blank, so a run of
   // spaces is left untouched. Upgrade to trim-then-collapse when trailing
   // whitespace normalization is wanted.

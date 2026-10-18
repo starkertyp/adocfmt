@@ -8,3 +8,5 @@ Eine Zelle kann am Zeilenanfang mit dem `a`-Zellen-Spezifizierer beginnen (`a|`)
 In dem Fall steht kein Leerzeichen zwischen dem `a` und dem `|`, nach dem `|` folgt genau ein Leerzeichen.
 Leerzeilen innerhalb der Tabelle sind zulässig.
 Ein mit Backslash escapeter Pipe (`\|`) ist kein Zellentrenner und bleibt unverändert (z. B. Shell-Pipes in Befehlen: `cmd \| grep`).
+
+Ein geschützter Block (`----`/`****`) innerhalb einer Tabelle beendet die Tabelle nicht: Zellen nach dem Block werden weiter gespacet, der Block selbst bleibt unverändert. Eine Zeile nach dem schließenden `|===` ist keine Tabellenzeile mehr.

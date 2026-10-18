@@ -11,7 +11,7 @@
 
 ## Conventions
 
-- Every formatting rule is a `FormatRule` (`String -> String`) registered in `FormatRules.defaults()`. The pipeline is line-based and normalizes line endings to `\n` before rules run; it has **no block context** (verbatim/listing blocks are not detected — note this ceiling when adding rules).
+- Every formatting rule is a `FormatRule` (`String -> String`) registered in `FormatRules.defaults()`. The pipeline is line-based, normalizes line endings to `\n`, and masks lines inside `----`/`****` blocks as opaque tokens before rules run: rules see them as non-blank, content-free neighbours and the originals are restored afterwards. Other block types (`....`, `++++`, `////`, `====`) are not detected — note this ceiling when adding rules.
 - Every rule MUST be idempotent: `format(format(x)) == format(x)`.
 - Rule behavior is specified by fixtures, not prose: `src/test/resources/spec/<rule>/{README.md,before.adoc,after.adoc}`. A fixture test formats `before.adoc` and must equal `after.adoc`. Add new rules here first.
 - CLI (`FormatCommand`, picocli): default prints to stdout, `--write`, `--check` (exit `1` if changes needed), `--diff`, `--stdin`; exit `2` on usage/IO error.

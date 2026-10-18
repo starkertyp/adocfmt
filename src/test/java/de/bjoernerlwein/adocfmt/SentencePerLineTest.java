@@ -30,6 +30,12 @@ class SentencePerLineTest {
   }
 
   @Test
+  void protectedBlockIsOpaqueToProseDetection() {
+    String input = "----\nErster. Zweiter.\n----\n";
+    assertEquals(input, formatter.format(input));
+  }
+
+  @Test
   void splitsTwoSentencesOnOneLine() {
     assertEquals("Erster Satz.\nZweiter Satz.\n", formatter.format("Erster Satz. Zweiter Satz.\n"));
   }

@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
 
 public final class SentencePerLineRule implements FormatRule {
 
-  // Line-based prose classifier. Delimited `----` blocks are withheld by the
-  // Formatter, so listing/verbatim content never reaches this rule. The prefix
-  // list does not parse AsciiDoc blocks; add prefixes when a real document
-  // needs them.
+  // Line-based prose classifier. Delimited blocks are masked by the Formatter,
+  // so listing/verbatim content only reaches this rule as opaque token lines,
+  // which the NON_PROSE pattern excludes. The prefix list does not parse
+  // AsciiDoc blocks; add prefixes when a real document needs them.
   // ponytail: does not split before a quote or bracket (`Ende."`); upgrade to a
   // richer tokenizer when needed.
   private static final Pattern NON_PROSE =
@@ -25,7 +25,8 @@ public final class SentencePerLineRule implements FormatRule {
               + "|^\\s*\\[.*\\]\\s*$"
               + "|^\\."
               + "|^<+$"
-              + "|^//");
+              + "|^//"
+              + "|^\u0000");
 
   private static final Pattern BOUNDARY = Pattern.compile("(?<=\\.)\\s+(?=[A-ZÄÖÜ])");
 

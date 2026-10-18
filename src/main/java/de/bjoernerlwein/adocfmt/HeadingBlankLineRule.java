@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public final class HeadingBlankLineRule implements FormatRule {
 
-  // Line-based. Delimited `----` blocks are segments the Formatter never
-  // exposes to this rule, so listing content cannot be reformatted here.
+  // Line-based. Delimited blocks are masked by the Formatter, so listing
+  // content only reaches this rule as opaque, non-blank token lines.
 
   private static final Pattern HEADING = Pattern.compile("^=+ ");
   private static final Pattern ANCHOR = Pattern.compile("^\\s*\\[\\[.*\\]\\]\\s*$");
