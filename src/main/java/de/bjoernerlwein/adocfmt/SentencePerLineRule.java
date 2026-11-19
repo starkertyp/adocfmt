@@ -19,7 +19,7 @@ public final class SentencePerLineRule implements FormatRule {
           "^=+ "
               + "|^\\s*[*\\-]+\\s"
               + "|^\\s*\\d+\\.\\s"
-              + "|^\\s*a?\\|"
+              + "|^\\s*[adehlmsv]?\\|"
               + "|^[A-Za-z][\\w-]*::"
               + "|^:[^:]+:"
               + "|^\\s*\\[.*\\]\\s*$"

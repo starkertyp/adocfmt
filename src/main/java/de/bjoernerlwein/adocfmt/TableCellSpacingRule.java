@@ -2,6 +2,7 @@ package de.bjoernerlwein.adocfmt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class TableCellSpacingRule implements FormatRule {
@@ -15,9 +16,10 @@ public final class TableCellSpacingRule implements FormatRule {
   // backslash + real marker) is left unspaced; count backslashes if ever needed
   private static final Pattern MARKER = Pattern.compile("\\s*(?<!\\\\)\\|\\s*");
   private static final Pattern LEADING = Pattern.compile("^\\s*\\|");
-  private static final Pattern A_LEADING = Pattern.compile("^\\s*a\\|");
+  // Cell style specifiers (a, d, e, h, l, m, s, v) directly attached to the leading `|`.
+  private static final Pattern STYLE_LEADING = Pattern.compile("^\\s*([adehlmsv])\\|");
   private static final Pattern EMPTY_CELL = Pattern.compile("^\\|\\s*$");
-  private static final Pattern EMPTY_A_CELL = Pattern.compile("^\\s*a\\|\\s*$");
+  private static final Pattern EMPTY_STYLE_CELL = Pattern.compile("^\\s*([adehlmsv])\\|\\s*$");
 
   @Override
   public String apply(String input) {
@@ -33,15 +35,16 @@ public final class TableCellSpacingRule implements FormatRule {
           out.add("|");
           continue;
         }
-        if (EMPTY_A_CELL.matcher(line).matches()) {
-          out.add("a|");
+        Matcher emptyStyle = EMPTY_STYLE_CELL.matcher(line);
+        if (emptyStyle.matches()) {
+          out.add(emptyStyle.group(1) + "|");
           continue;
         }
         String spaced = MARKER.matcher(line).replaceAll(" | ");
         if (LEADING.matcher(line).find()) {
           spaced = spaced.replaceFirst("^\\s*\\| ", "| ");
-        } else if (A_LEADING.matcher(line).find()) {
-          spaced = spaced.replaceFirst("^\\s*a \\| ", "a| ");
+        } else if (STYLE_LEADING.matcher(line).find()) {
+          spaced = spaced.replaceFirst("^\\s*([adehlmsv]) \\| ", "$1| ");
         }
         out.add(spaced);
       } else {

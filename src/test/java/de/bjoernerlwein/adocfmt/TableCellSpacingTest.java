@@ -111,6 +111,19 @@ class TableCellSpacingTest {
   }
 
   @Test
+  void leadingHSpecifier() {
+    assertEquals("|===\nh| text\n|===\n", formatter.format("|===\nh|text\n|===\n"));
+    assertEquals("|===\nh| text | more\n|===\n", formatter.format("|===\n  h|text |more\n|===\n"));
+    assertEquals("|===\nh|\n|===\n", formatter.format("|===\nh|   \n|===\n"));
+  }
+
+  @Test
+  void leadingHSpecifierIsIdempotent() {
+    String once = formatter.format("|===\nh|text\n|===\n");
+    assertEquals(once, formatter.format(once));
+  }
+
+  @Test
   void inlineAAfterLeadingMarkerIsContent() {
     assertEquals("|===\n| a | b\n|===\n", formatter.format("|===\n|a|b\n|===\n"));
   }

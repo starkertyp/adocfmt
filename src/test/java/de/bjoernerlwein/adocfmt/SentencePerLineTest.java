@@ -182,4 +182,12 @@ class SentencePerLineTest {
     String once = formatter.format("kein Punkt hier\na| include::../version.txt[]\n");
     assertEquals(once, formatter.format(once));
   }
+
+  @Test
+  void leadingHCellLineIsNotProse() {
+    String input = "|===\nh| Eins. Zwei.\n|===\n";
+    assertEquals(input, formatter.format(input));
+    String once = formatter.format("kein Punkt hier\nh| Eins. Zwei.\n");
+    assertEquals(once, formatter.format(once));
+  }
 }
